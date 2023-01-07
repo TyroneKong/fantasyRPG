@@ -15,6 +15,7 @@ namespace dotnet_rpg2.Models
         public int Intelligence { get; set; }
 
         public RpgClass Class { get; set; } = RpgClass.Elf;
+        public User? User { get; set; }
     }
 }
 

@@ -8,6 +8,7 @@ namespace dotnet_rpg2.Models
         Knight = 1,
         Mage = 2,
         Elf = 3,
-        Dwarf = 4
+        Dwarf = 4,
+        Hobbit = 5
     }
 }
