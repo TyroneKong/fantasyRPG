@@ -12,15 +12,7 @@ namespace dotnet_rpg2.Services.CharacterService
     public class CharacterService : ICharacterService
     {
 
-        private static List<Character> characters = new List<Character>{
-            new Character(),
-            new Character {
-                Id = 1, Name = "Sauron",
-                Defence = 100,
-                Class = RpgClass.Mage
-            }
 
-        };
 
         private readonly IMapper _mapper;
 
@@ -94,8 +86,11 @@ namespace dotnet_rpg2.Services.CharacterService
             {
                 var dbcharacter = await _context.Characters.FirstOrDefaultAsync(c => c.Id == id);
                 if (dbcharacter is null) throw new Exception($"Character with Id '{id}' not found");
-                characters.Remove(dbcharacter);
-                serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDTO>(c)).ToList();
+                _context.Characters.Remove(dbcharacter);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = await _context.Characters.Select(c => _mapper.Map<GetCharacterDTO>(c)).ToListAsync();
+
             }
             catch (Exception ex)
             {
