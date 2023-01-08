@@ -32,5 +32,19 @@ namespace dotnet_rpg2.Controllers
             }
             return Ok(response);
         }
+        [HttpPost("Login")]
+        public async Task<ActionResult<ServiceResponse<int>>> Login(UserRegisterDTO request)
+        {
+            var response = await _authRepo.Login(
+                request.Username, request.Password
+
+
+            );
+            if (!response.success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
     }
 }
